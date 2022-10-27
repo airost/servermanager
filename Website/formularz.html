@@ -12,32 +12,34 @@
             <legend> Twoje dane </legend>
             <div>
             <label for="name"> Imię lub nick: </label>
-            <input type="text" name="name" size="12" minlength="3" maxlength="20" required autofocus placeholder="Biedronka14">
+            <input type="text" id="name" size="12" minlength="3" maxlength="20" required autofocus placeholder="Biedronka14">
             </div>
             <div>
             <label for="password"> Hasło: </label> 
-            <input type="password" name="password" minlength="8" required placeholder="Password90!">
+            <input type="password" id="password" minlength="8" required placeholder="Password90!">
             </div>
             <div>
             <label for="password_checker"> Powtórz hasło: </label>
-            <input type="password" name="password_checker" minlength="8" required placeholder="Password90!">
+            <input type="password" id="password_checker" minlength="8" required placeholder="Password90!">
             </div>
             <div>
             <label for="phone"> Numer telefonu: </label>
-            <input type="tel" name="phone" required pattern="[0-9]{9}" title="Wprowadź 9 cyfr">
+            <input type="tel" id="phone" required pattern="[0-9]{9}" title="Wprowadź 9 cyfr">
             </div>
             <div>
             <label for="dateofbirth"> Data urodzenia: </label>
-            <input type="date" name="dateofbirth">
+            <input type="date" id="dateofbirth">
             </div>
             <div>
-            <label for="gender"> Płeć: </label>
-                <input type="radio" name="gender" value="Kobieta" checked> Male
-                <input type="radio" name="gender" value="Mężczyzna"> Female
+            <label> Płeć </label>
+            <input type="radio" id="gender_female" name="gender" value="female" checked>
+            <label for="gender_female"> Kobieta </label>
+            <input type="radio" id="gender_male" name="gender" value="male">
+            <label for="gender_male"> Mężczyzna </label>
             </div>
             <div>
             <label for="avatar"> Twój awatar: </label>
-            <input type="file" name="avatar" accept="image/*">
+            <input type="file" id="avatar" accept="image/*">
             </div>
             <input type="submit">
         </fieldset>
@@ -55,7 +57,7 @@
             <div>
             <label for="itskills"> Umiejętności IT: </label>
             <br>
-            <select name="skills" id="skills" size="5" multiple>
+            <select name="itskills" id="itskills" size="5" multiple>
                 <optgroup label="Systemy operacyjne">
                     <option value="windows" selected> Windows </option>
                     <option value="linux" selected> Linux </option>
@@ -70,19 +72,19 @@
             </div>
             <div>
             <label for="color"> Ulubiony kolor: </label>
-            <input type="color" name="color">
+            <input type="color" id="color">
             </div>
             <div>
             <label for="mondays"> Jak bardzo nie lubisz poniedziałków: </label>
-            <input type="range" min="1" max="10" step="1" id="mondays">
+            <input id="mondays" type="range" min="1" max="10" step="1">
             </div>
             <div>
             <label for="hobbies"> Kilka słów o pozostałych zainteresowaniach: </label>
-            <textarea name="hobbies" rows="4" cols="50" id="hobby"></textarea>
+            <textarea name="hobbies" id="hobbies" cols="50" rows="4"></textarea>
             </div>
         </fieldset>
         <input type="submit">
-        <input type="reset" value="Reset" name="resetform" />
+        <input type="reset" value="Reset" name="resetform">
     </form>
     
 </body>
