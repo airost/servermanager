@@ -151,13 +151,3 @@ done
 }
 main
 done
-
-4)Z trudności jakie mi sprawił skrypt to prosta komenda która wyświetla plik z zachowaniem każdej linijki osobno, 
-do tego użyłem polecenia printf, który następnie musiałem zmodyfikować poprzez argument %s\n
-Kolejną trudnością podczas pisania skryptu jaki napotkałem to użycie pętli if w instrukcji case która natomiast znajdowała się w pętli select
-Dla opcji numer 2 czyli tworzenie użytkownika musiałem doinstalować paczkę o nazwie sudo ponieważ w systemie FreeBSD nie ma standardowo komendy
-sudo, następnie musiałem edytować plik /usr/local/etc/sudoers komenda visudo (zgodnie z instrukcja paczki) - edytor vi rozni sie znacznie od 
-edytora ktorego uzywam na codzien czyli ee miedzy innymi zeby wyjsc w edytorze ee wystarczy nacisnac klawisz ESC i pojawia sie menu w ktorym wybieramy opcje a (wyjscie i zapis)
-w edytorze vi aby wyjsc nalezy nacisnac klawisz ESC nastepnie wpisac :q! Dodatkowo co napotkałem to brak katalogu /bin/bash co okazało się że znajduje się w /usr/local/bin/bash 
-- utworzyłem link do tego i działa w obu przypadkach
-
