@@ -1,0 +1,163 @@
+#!/usr/local/bin/bash
+function repo ()
+{ sudo pkg upgrade
+  sudo pkg update
+}
+echo "Co wybierasz?"
+select wybor in Uzytkownik Nowy_uzytkownik rc.conf Procesy Backup PKG Quit
+do
+	case $wybor in
+		"Uzytkownik")			echo "Wyswietl uzytkownika oraz system operacyjny"
+						echo $USER $OSTYPE;;
+		"Nowy_uzytkownik") 		echo "Podaj nazwe uzytkownika jaka mam utworzyc:"
+						sudo adduser ;;
+		"rc.conf") 			echo "Wyswietl rc.conf - taki Unixowy autoexec.bat" 
+						cat /etc/rc.conf ;;
+		"Procesy")			echo "Wyswietl procesy oraz parametry wyswietlenia"
+						read parametry 
+						ps aux $parametry;;
+		"Backup") 			echo "Wybierz opcje kopii zapasowej
+				      			1) Sprawdz czy utworzono oraz ostatnia date pliku
+				      			2) Utworz kopie pliku" 
+								read bu
+								case "$bu" in 
+								"1") if [ -e /home/airost/backup.sh ]; then
+					     			echo "Kopia juz istnieje, ponizej prawa dostepu, uzytkownik, grupa oraz czas utworzenia pliku"
+					     			ls -l backup.sh
+					     			else echo "Brak kopii zapasowej skryptu" 
+					     			fi ;;
+								"2") cp ~/pierwszyskrypt.sh ~/backup.sh ;;
+								*)   echo "Bledny wybor" ;;
+								esac ;;
+		"PKG")				echo "Aktualizuje repozytorium"
+						repo
+						echo "Repozytorium zaktualizowane" ;;
+		"Quit") 			echo "Wyjscie" ;;
+		*) echo "Domyslnie - Bledny wybor" ;;
+	esac
+break
+done
+
+
+b)
+
+#!/usr/local/bin/bash
+
+CURRENTDATEONLY=`date +"%b %d, %Y"`
+
+menu_fileoption_one()
+{
+   	select filesselection in Dodaj Usun Wyjscie
+    	do
+    	case $filesselection in
+	    "Dodaj") echo "Stworz plik - podaj nazwe wraz z rozszerzeniem np. plik.txt"
+		     read plik
+		     touch $plik
+		     echo "Plik $plik stworzony" ;;
+	    "Usun") echo "Usun plik - podaj nazwe pliku wraz z rozszerzeniem np. plik.txt"
+		     read delplik
+		     rm $delplik
+		     echo "Plik $delplik usuniety" ;;
+	    "Wyjscie") menu_option_two ;;
+	    *)	     echo "Bledny wybor" ;;	    
+esac
+done
+}
+
+menu_fileoption_two()
+{
+select directorymenu in Dodaj Usun Wyjscie
+    	do
+    	case $directorymenu in
+	     "Dodaj") echo "Stworz katalog - podaj nazwe katalogu jaki chcesz utworzyc"
+	    	      read make_directory
+	    	      mkdir $make_directory
+	    	      echo "Katalog o nazwie $make_directory utworzony pomyslnie" ;;
+	     "Usun")  echo "Usun katalog - podaj nazwe katalogu jaki chcesz utworzyc"
+		      read del_directory
+		      rmdir $del_directory
+		      echo "Katalog o nazwie $del_directory zostal usuniety pomyslnie" ;;    
+	     "Wyjscie") menu_option_two ;;
+	     *)	      echo "Bledny wybor" ;;
+esac
+done
+}
+
+menu_option_one() {
+  echo "Zalogowany uzytkownik to: $USER, system operacyjny to $OSTYPE, dzisiejsza data $CURRENTDATEONLY"
+}
+
+menu_option_two() 
+{
+  	echo "Tutaj wykonasz wszystkie podstawowe operacje na plikach"
+	select filesmenu in Plik Katalog Wyjscie
+	do
+	case $filesmenu in
+    	"Plik")
+	menu_fileoption_one ;;
+ 
+    	"Katalog")
+	menu_fileoption_two ;;
+	
+	"Wyjscie")
+	main ;;
+esac
+done
+    	
+}
+
+menu_option_three() {
+  echo "Dodaj uzytkownika"
+  sudo adduser
+}
+
+press_enter() {
+  echo ""
+  echo -n "	Nacisnij Enter aby kontynuowac "
+  read
+  clear
+}
+
+incorrect_selection() {
+  echo "Bledny wybor! Wybierz ponownie."
+}
+
+goodbye() {
+  echo "Do widzenia!"
+}
+
+main()
+{
+
+until [ "$selection" = "0" ]; do
+  clear
+  echo ""
+  echo "    	1  -  Wyswietl informacje"
+  echo "    	2  -  Operacje na plikach"
+  echo "    	3  -  Operacje na uzytkownikach"
+  echo "    	0  -  Exit"
+  echo ""
+  echo -n "  Enter selection: "
+  read selection
+  echo ""
+  case $selection in
+    1 ) clear ; menu_option_one ; press_enter ;;
+    2 ) clear ; menu_option_two ; press_enter ;;
+    3 ) clear ; menu_option_three ; press_enter ;;
+    0 ) clear ; goodbye ; exit ;;
+    * ) clear ; incorrect_selection ; press_enter ;;
+  esac
+done
+}
+main
+done
+
+4)Z trudności jakie mi sprawił skrypt to prosta komenda która wyświetla plik z zachowaniem każdej linijki osobno, 
+do tego użyłem polecenia printf, który następnie musiałem zmodyfikować poprzez argument %s\n
+Kolejną trudnością podczas pisania skryptu jaki napotkałem to użycie pętli if w instrukcji case która natomiast znajdowała się w pętli select
+Dla opcji numer 2 czyli tworzenie użytkownika musiałem doinstalować paczkę o nazwie sudo ponieważ w systemie FreeBSD nie ma standardowo komendy
+sudo, następnie musiałem edytować plik /usr/local/etc/sudoers komenda visudo (zgodnie z instrukcja paczki) - edytor vi rozni sie znacznie od 
+edytora ktorego uzywam na codzien czyli ee miedzy innymi zeby wyjsc w edytorze ee wystarczy nacisnac klawisz ESC i pojawia sie menu w ktorym wybieramy opcje a (wyjscie i zapis)
+w edytorze vi aby wyjsc nalezy nacisnac klawisz ESC nastepnie wpisac :q! Dodatkowo co napotkałem to brak katalogu /bin/bash co okazało się że znajduje się w /usr/local/bin/bash 
+- utworzyłem link do tego i działa w obu przypadkach
+
