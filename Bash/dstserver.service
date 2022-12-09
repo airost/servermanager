@@ -1,0 +1,16 @@
+[Unit]
+Description=Don't Starve Together Dedicated Server
+Wants=network-online.target
+After=syslog.target network.target local-fs.target
+
+[Service]
+WorkingDirectory=/home/steamcmd
+User=steamcmd
+Group=steamcmd
+Type=simple
+ExecStart=/bin/bash /home/steamcmd/rundedicated_servers.sh
+ExecStop=/bin/bash /home/steamcmd/stopdedicated_servers.sh
+
+
+[Install]
+WantedBy=multi-user.target
