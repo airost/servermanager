@@ -1,0 +1,51 @@
+@page "{hotelid:int}/{roomid:int?}"
+@model CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ReservationModel</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.ReservationFrom" class="control-label"></label>
+                <input asp-for="ReservationModel.ReservationFrom" class="form-control" type="date"/>
+                <span asp-validation-for="ReservationModel.ReservationFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.ReservationTo" class="control-label"></label>
+                <input asp-for="ReservationModel.ReservationTo" class="form-control" type="date"/>
+                <span asp-validation-for="ReservationModel.ReservationTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model.RoomId != null) {
+                    <input hidden readonly id="roomSelected" asp-for="ReservationModel.RoomID" value="@Model.RoomId"/>
+                }
+                else {
+                    <label asp-for="ReservationModel.RoomID" class="control-label"></label>
+                    <select id="roomDropdown" asp-for="ReservationModel.RoomID" class="form-control">
+                        <option value="">-- Select Room --</option>
+                        @foreach (var room in Model.HotelRooms) {
+                            <option value="@room.RoomId">@room.RoomNumber</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ReservationModel.HotelID" class="text-danger"></span>
+                }
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

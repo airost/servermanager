@@ -1,0 +1,51 @@
+@page
+@model HotelManager.Pages.Reservations.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ReservationModel</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReservationModel.ReservationId"/>
+            <div class="form-group">
+                <label asp-for="ReservationModel.ReservationFrom" class="control-label"></label>
+                <input asp-for="ReservationModel.ReservationFrom" class="form-control"/>
+                <span asp-validation-for="ReservationModel.ReservationFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.ReservationTo" class="control-label"></label>
+                <input asp-for="ReservationModel.ReservationTo" class="form-control"/>
+                <span asp-validation-for="ReservationModel.ReservationTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.HotelID" class="control-label"></label>
+                <input asp-for="ReservationModel.HotelID" class="form-control"/>
+                <span asp-validation-for="ReservationModel.HotelID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.UserID" class="control-label"></label>
+                <input asp-for="ReservationModel.UserID" class="form-control"/>
+                <span asp-validation-for="ReservationModel.UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationModel.Status" class="control-label"></label>
+                <select asp-for="ReservationModel.Status" class="form-control"></select>
+                <span asp-validation-for="ReservationModel.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>

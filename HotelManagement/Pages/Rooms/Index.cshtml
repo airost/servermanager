@@ -1,0 +1,54 @@
+@page "{hotelid:int?}"
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomModel[0].Hotel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomModel[0].HotelFloor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomModel[0].RoomNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomModel[0].RoomPrice)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.RoomModel) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.HotelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomPrice)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.RoomId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.RoomId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.RoomId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

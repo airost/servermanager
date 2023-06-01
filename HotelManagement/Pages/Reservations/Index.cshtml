@@ -1,0 +1,65 @@
+@page
+@using HotelManager.Authorization
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationModel[0].ReservationFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationModel[0].ReservationTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationModel[0].Hotel.HotelName)
+        </th>
+        @if (Model.User.IsInRole(HotelConstants.HotelManagerRole) || Model.User.IsInRole(HotelConstants.HotelAdminRole)) {
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationModel[0].UserID)
+            </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationModel[0].Status)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.ReservationModel.Reverse()) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.HotelName)
+            </td>
+            @if (Model.User.IsInRole(HotelConstants.HotelManagerRole) || Model.User.IsInRole(HotelConstants.HotelAdminRole)) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ReservationId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ReservationId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ReservationId">Cancel</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

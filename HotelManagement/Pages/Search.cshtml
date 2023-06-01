@@ -1,0 +1,54 @@
+@page "{hotelid:int?}"
+@model SearchModel
+
+@{
+    ViewData["title"] = "Search";
+}
+
+@if (Model.Rooms != null) {
+    <h1>Look for a room in hotel: <b>@Model.Hotels.Find(h => h.HotelId == Model.HotelId)?.HotelName</b></h1>
+    @if (Model.Rooms.Count > 0) {
+        <div class="row row-cols-1 row-cols-md-5 g-4 m-2">
+            @foreach (var room in Model.Rooms) {
+                <div class="row">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@Model.Hotels.Find(h => h.HotelId == room.HotelId)?.ImageUrl" alt="Hotel Image"/>
+                        <div class="card-body">
+                            <h5 class="card-title">Room no. @room.RoomNumber</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Floor no. @room.HotelFloor</h6>
+                            <p class="card-text">
+                                Price: @room.RoomPrice
+                            </p>
+                            <a class="btn btn-primary" asp-area="" asp-page="/Reservations/Create" asp-route-hotelid="@room.HotelId" asp-route-roomid="@room.RoomId">Create reservation</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else {
+        <div class="container text-black-50">
+            <h4>No rooms available.</h4>
+        </div>
+    }
+}
+else {
+    <h1>Look for a hotel</h1>
+    <br/>
+    <div class="row row-cols-1 row-cols-md-5 g-4 m-2">
+        @foreach (var hotel in Model.Hotels) {
+            <div class="row">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top mt-3" src="@hotel.ImageUrl" alt="Hotel Image"/>
+                    <div class="card-body">
+                        <h5 class="card-title">@hotel.HotelName</h5>
+                        <p class="card-text">
+                            @hotel.Description
+                        </p>
+                        <a class="btn btn-primary" asp-area="" asp-page="/Search" asp-route-hotelid="@hotel.HotelId">Rooms</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
